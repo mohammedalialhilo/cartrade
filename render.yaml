@@ -2,8 +2,11 @@ services:
   - type: web
     name: cartrade-web
     runtime: docker
+    plan: free
     dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    dockerContext: .
+    autoDeployTrigger: commit
+    healthCheckPath: /
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
