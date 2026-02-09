@@ -1,0 +1,46 @@
+@model Cartrade.Models.ViewModels.VehicleImportViewModel
+@{
+    ViewData["Title"] = "Import";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Importera fordon</h1>
+        <p>Läs in semikolon-separerad fil till databasen.</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-brand">Tillbaka</a>
+</div>
+
+<form asp-action="Import" method="post" enctype="multipart/form-data" class="form-shell">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="File" class="form-label"></label>
+        <input asp-for="File" type="file" class="form-control" accept=".csv,.txt" />
+        <span asp-validation-for="File" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-brand">Starta import</button>
+</form>
+
+@if (Model.ImportedCount > 0 || Model.SkippedCount > 0 || Model.Warnings.Count > 0)
+{
+    <section class="mt-4 form-shell">
+        <h2>Importresultat</h2>
+        <p>Importerade: <strong>@Model.ImportedCount</strong></p>
+        <p>Överhoppade: <strong>@Model.SkippedCount</strong></p>
+        @if (Model.Warnings.Count > 0)
+        {
+            <h3>Varningar</h3>
+            <ul>
+                @foreach (var warning in Model.Warnings)
+                {
+                    <li>@warning</li>
+                }
+            </ul>
+        }
+    </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

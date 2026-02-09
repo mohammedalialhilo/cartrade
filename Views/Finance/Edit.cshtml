@@ -1,0 +1,58 @@
+@model Cartrade.Models.ViewModels.FinanceUpdateViewModel
+@{
+    ViewData["Title"] = "Financeuppdatering";
+    var vehicle = ViewData["Vehicle"] as Cartrade.Models.Vehicle;
+}
+
+<div class="page-head">
+    <div>
+        <h1>Finance: @vehicle?.RegistrationNumber</h1>
+        <p>@vehicle?.Make @vehicle?.Model</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-brand">Tillbaka</a>
+</div>
+
+<form asp-action="Edit" method="post" class="form-shell">
+    <input asp-for="VehicleId" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label asp-for="ConditionGrade" class="form-label"></label>
+            <input asp-for="ConditionGrade" class="form-control" placeholder="A-E" />
+            <span asp-validation-for="ConditionGrade" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="InternalValuation" class="form-label"></label>
+            <input asp-for="InternalValuation" class="form-control" />
+            <span asp-validation-for="InternalValuation" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="OfferPrice" class="form-label"></label>
+            <input asp-for="OfferPrice" class="form-control" />
+            <span asp-validation-for="OfferPrice" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="SupplierAccepted" class="form-label"></label>
+            <select asp-for="SupplierAccepted" class="form-select">
+                <option value="">Ej beslutat</option>
+                <option value="true">Ja</option>
+                <option value="false">Nej</option>
+            </select>
+            <span asp-validation-for="SupplierAccepted" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Notes" class="form-label"></label>
+            <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-brand">Spara finance</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

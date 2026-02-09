@@ -1,0 +1,90 @@
+@using Cartrade.Models.Enums
+@model IReadOnlyCollection<Cartrade.Models.Vehicle>
+@{
+    ViewData["Title"] = "Fordon";
+    var selectedStatus = ViewData["SelectedStatus"]?.ToString();
+    var search = ViewData["Search"]?.ToString();
+}
+
+<div class="page-head">
+    <div>
+        <h1>Fordon</h1>
+        <p>Samlad vy för importerade och manuellt registrerade bilar.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Create" class="btn btn-brand">Ny manuell registrering</a>
+        <a asp-action="Import" class="btn btn-outline-brand">Importera fil</a>
+    </div>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+<form method="get" class="filter-row">
+    <input type="text" name="search" value="@search" class="form-control" placeholder="Sök regnr, märke, modell..." />
+    <select name="status" class="form-select">
+        <option value="">Alla statusar</option>
+        @foreach (var status in Enum.GetValues<VehicleStatus>())
+        {
+            if (status.ToString().Equals(selectedStatus, StringComparison.OrdinalIgnoreCase))
+            {
+                <option value="@status" selected>@status</option>
+            }
+            else
+            {
+                <option value="@status">@status</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-dark">Filtrera</button>
+</form>
+
+<div class="table-shell">
+    <table class="table table-hover align-middle">
+        <thead>
+        <tr>
+            <th>Regnr</th>
+            <th>Bil</th>
+            <th>Km</th>
+            <th>Partner</th>
+            <th>Källa</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var vehicle in Model)
+        {
+            <tr>
+                <td><strong>@vehicle.RegistrationNumber</strong></td>
+                <td>@vehicle.Make @vehicle.Model (@vehicle.ModelYear)</td>
+                <td>@vehicle.OdometerKm</td>
+                <td>@vehicle.PartnerName</td>
+                <td>@vehicle.Source</td>
+                <td><span class="badge text-bg-secondary">@vehicle.Status</span></td>
+                <td class="text-end">
+                    <a asp-action="Details" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-dark">Detaljer</a>
+                    @if (User.IsInRole("Inspection") || User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Inspection" asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-primary">Besiktning</a>
+                    }
+                    @if (User.IsInRole("Finance") || User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Finance" asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-warning">Finance</a>
+                    }
+                    @if (User.IsInRole("Sales") || User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Sales" asp-action="Publish" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-success">Publicera</a>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

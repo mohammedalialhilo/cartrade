@@ -1,0 +1,47 @@
+@model IReadOnlyCollection<Cartrade.Models.Vehicle>
+@{
+    ViewData["Title"] = "Besiktning";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Besiktningskö</h1>
+        <p>Starta och avsluta besiktning samt registrera skador och kostnader.</p>
+    </div>
+    <a asp-controller="Vehicles" asp-action="Index" class="btn btn-outline-brand">Alla fordon</a>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+
+<div class="table-shell">
+    <table class="table table-hover align-middle">
+        <thead>
+        <tr>
+            <th>Regnr</th>
+            <th>Fordon</th>
+            <th>Status</th>
+            <th>Start</th>
+            <th>Klar</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var vehicle in Model)
+        {
+            <tr>
+                <td>@vehicle.RegistrationNumber</td>
+                <td>@vehicle.Make @vehicle.Model</td>
+                <td><span class="badge text-bg-secondary">@vehicle.Status</span></td>
+                <td>@vehicle.InspectionReport?.StartedAt</td>
+                <td>@vehicle.InspectionReport?.CompletedAt</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-primary">Uppdatera</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

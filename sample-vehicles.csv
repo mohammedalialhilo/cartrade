@@ -1,0 +1,4 @@
+ExternalReference;RegistrationNumber;Vin;Make;Model;ModelYear;OdometerKm;Color;FuelType;PartnerName
+LEASE-2001;GHI111;WBAZZZ12345678901;BMW;320d;2022;55200;Grey;Diesel;BMW Financial Services
+LEASE-2002;JKL222;WDDZZZ12345678901;Mercedes;C300e;2023;26900;Blue;Hybrid;Mercedes-Benz Finans
+LEASE-2003;MNO333;YT1ZZZ12345678901;Toyota;RAV4;2021;61700;White;Hybrid;Toyota Kreditbank

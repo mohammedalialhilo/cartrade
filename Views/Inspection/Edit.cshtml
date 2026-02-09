@@ -1,0 +1,54 @@
+@model Cartrade.Models.ViewModels.InspectionUpdateViewModel
+@{
+    ViewData["Title"] = "Uppdatera besiktning";
+    var vehicle = ViewData["Vehicle"] as Cartrade.Models.Vehicle;
+}
+
+<div class="page-head">
+    <div>
+        <h1>Besiktning: @vehicle?.RegistrationNumber</h1>
+        <p>@vehicle?.Make @vehicle?.Model</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-brand">Tillbaka</a>
+</div>
+
+<form asp-action="Edit" method="post" class="form-shell">
+    <input asp-for="VehicleId" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label asp-for="StartedAt" class="form-label"></label>
+            <input asp-for="StartedAt" type="datetime-local" class="form-control" />
+            <span asp-validation-for="StartedAt" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="CompletedAt" class="form-label"></label>
+            <input asp-for="CompletedAt" type="datetime-local" class="form-control" />
+            <span asp-validation-for="CompletedAt" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="DamageNotes" class="form-label"></label>
+            <textarea asp-for="DamageNotes" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="DamageNotes" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Comments" class="form-label"></label>
+            <textarea asp-for="Comments" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Comments" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="EstimatedRepairCost" class="form-label"></label>
+            <input asp-for="EstimatedRepairCost" class="form-control" />
+            <span asp-validation-for="EstimatedRepairCost" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-brand">Spara besiktning</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

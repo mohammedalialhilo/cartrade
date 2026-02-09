@@ -1,0 +1,9 @@
+[build]
+  publish = "netlify-public"
+  command = ""
+
+[[redirects]]
+  from = "/*"
+  to = "https://YOUR-RENDER-URL.onrender.com/:splat"
+  status = 200
+  force = true

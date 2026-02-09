@@ -1,0 +1,44 @@
+@model Cartrade.Models.ViewModels.PublishAuctionViewModel
+@{
+    ViewData["Title"] = "Publicera auktion";
+    var vehicle = ViewData["Vehicle"] as Cartrade.Models.Vehicle;
+}
+
+<div class="page-head">
+    <div>
+        <h1>Publicera: @vehicle?.RegistrationNumber</h1>
+        <p>@vehicle?.Make @vehicle?.Model</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-brand">Tillbaka</a>
+</div>
+
+<form asp-action="Publish" method="post" class="form-shell">
+    <input asp-for="VehicleId" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label asp-for="ReservePrice" class="form-label"></label>
+            <input asp-for="ReservePrice" class="form-control" />
+            <span asp-validation-for="ReservePrice" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="EndsAt" class="form-label"></label>
+            <input asp-for="EndsAt" type="datetime-local" class="form-control" />
+            <span asp-validation-for="EndsAt" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Notes" class="form-label"></label>
+            <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-brand">Publicera auktion</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

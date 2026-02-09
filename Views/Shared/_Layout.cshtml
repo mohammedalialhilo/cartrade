@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarTrade</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Cartrade.styles.css" asp-append-version="true" />
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light nav-shell">
+        <div class="container-xl">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarTrade</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Visa meny">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="topNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
+                    </li>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        @if (User.IsInRole("Admin") || User.IsInRole("Inspection") || User.IsInRole("Finance") || User.IsInRole("Sales"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Vehicles" asp-action="Index">Fordon</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Inspection"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Inspection" asp-action="Index">Besiktning</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Finance"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Finance" asp-action="Index">Finance</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Sales"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Sales" asp-action="Index">Sales</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="AdminUsers" asp-action="Index">Users</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Auction" asp-action="Index">Auktion</a>
+                        </li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-xl main-shell">
+    <main role="main" class="pb-4">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="footer-shell">
+    <div class="container-xl">
+        <span>&copy; 2026 CarTrade</span>
+        <a asp-area="" asp-controller="Home" asp-action="Privacy">Integritet</a>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

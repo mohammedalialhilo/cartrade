@@ -1,0 +1,48 @@
+@model IReadOnlyCollection<Cartrade.Models.ViewModels.AdminUserListItemViewModel>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="page-head">
+    <div>
+        <h1>User Management</h1>
+        <p>Only admins can create accounts and assign roles.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-brand">Create user</a>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+
+<div class="table-shell">
+    <table class="table table-striped align-middle">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Roles</td>
+                <td>
+                    @if (user.IsLocked)
+                    {
+                        <span class="badge text-bg-warning">Locked</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-success">Active</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

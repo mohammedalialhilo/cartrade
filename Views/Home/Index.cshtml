@@ -1,0 +1,82 @@
+@model Cartrade.Models.ViewModels.HomeDashboardViewModel
+@{
+    ViewData["Title"] = "CarTrade";
+}
+
+<section class="hero-shell">
+    <div class="hero-copy">
+        <p class="eyebrow">Remarketing Management</p>
+        <h1>CarTrade för värdering, försäljning och auktion i ett enda system</h1>
+        <p class="lead-copy">
+            Ett gemensamt arbetsflöde för besiktning, finans och sälj med spårbar status per fordon.
+        </p>
+        @if (!Model.IsAuthenticated)
+        {
+            <div class="hero-actions">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-brand">Logga in</a>
+            </div>
+            <p class="small-note mt-2">Nya konton skapas av admin.</p>
+        }
+    </div>
+    <div class="hero-panel">
+        <h2>Demo-konton</h2>
+        <ul class="demo-list">
+            <li><code>admin@cartrade.local</code></li>
+            <li><code>inspection@cartrade.local</code></li>
+            <li><code>finance@cartrade.local</code></li>
+            <li><code>sales@cartrade.local</code></li>
+            <li><code>dealer@cartrade.local</code></li>
+        </ul>
+        <p class="small-note">Lösenord: <code>CarTrade!2026</code></p>
+    </div>
+</section>
+
+@if (Model.IsAuthenticated)
+{
+    <section class="stats-grid">
+        <article class="stat-card">
+            <p>Totalt i lager</p>
+            <h3>@Model.TotalVehicles</h3>
+        </article>
+        <article class="stat-card">
+            <p>Väntar på besiktning</p>
+            <h3>@Model.AwaitingInspection</h3>
+        </article>
+        <article class="stat-card">
+            <p>Väntar på finans</p>
+            <h3>@Model.AwaitingFinance</h3>
+        </article>
+        <article class="stat-card">
+            <p>Klara för försäljning</p>
+            <h3>@Model.ReadyForSale</h3>
+        </article>
+        <article class="stat-card">
+            <p>Aktiva auktioner</p>
+            <h3>@Model.ActiveAuctions</h3>
+        </article>
+    </section>
+
+    <section class="quick-actions">
+        @if (User.IsInRole("Admin") || User.IsInRole("Inspection") || User.IsInRole("Finance") || User.IsInRole("Sales"))
+        {
+            <a asp-controller="Vehicles" asp-action="Index" class="quick-link">Fordon</a>
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Inspection"))
+        {
+            <a asp-controller="Inspection" asp-action="Index" class="quick-link">Besiktning</a>
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Finance"))
+        {
+            <a asp-controller="Finance" asp-action="Index" class="quick-link">Finance</a>
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Sales"))
+        {
+            <a asp-controller="Sales" asp-action="Index" class="quick-link">Sales</a>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="AdminUsers" asp-action="Index" class="quick-link">Users</a>
+        }
+        <a asp-controller="Auction" asp-action="Index" class="quick-link">Auktion</a>
+    </section>
+}

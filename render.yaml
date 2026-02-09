@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: cartrade-web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_FORWARDEDHEADERS_ENABLED
+        value: "true"
+      - key: DatabaseProvider
+        value: sqlite

@@ -1,0 +1,101 @@
+@model Cartrade.Models.Vehicle
+@{
+    ViewData["Title"] = "Fordonsdetaljer";
+}
+
+<div class="page-head">
+    <div>
+        <h1>@Model.RegistrationNumber</h1>
+        <p>@Model.Make @Model.Model (@Model.ModelYear) - Status: <strong>@Model.Status</strong></p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-brand">Tillbaka</a>
+</div>
+
+<section class="details-grid">
+    <article class="detail-card">
+        <h2>Grunddata</h2>
+        <dl>
+            <dt>VIN</dt>
+            <dd>@Model.Vin</dd>
+            <dt>Körsträcka</dt>
+            <dd>@Model.OdometerKm km</dd>
+            <dt>Färg / Drivmedel</dt>
+            <dd>@Model.Color / @Model.FuelType</dd>
+            <dt>Partner</dt>
+            <dd>@Model.PartnerName</dd>
+            <dt>Källa</dt>
+            <dd>@Model.Source</dd>
+            <dt>Extern referens</dt>
+            <dd>@Model.ExternalReference</dd>
+        </dl>
+    </article>
+
+    <article class="detail-card">
+        <h2>Besiktning</h2>
+        @if (Model.InspectionReport is null)
+        {
+            <p>Ingen besiktning registrerad.</p>
+        }
+        else
+        {
+            <dl>
+                <dt>Start</dt>
+                <dd>@Model.InspectionReport.StartedAt</dd>
+                <dt>Klar</dt>
+                <dd>@Model.InspectionReport.CompletedAt</dd>
+                <dt>Skador</dt>
+                <dd>@Model.InspectionReport.DamageNotes</dd>
+                <dt>Reparationskostnad</dt>
+                <dd>@Model.InspectionReport.EstimatedRepairCost.ToString("C0")</dd>
+                <dt>Kommentar</dt>
+                <dd>@Model.InspectionReport.Comments</dd>
+            </dl>
+        }
+    </article>
+
+    <article class="detail-card">
+        <h2>Finance</h2>
+        @if (Model.FinanceEvaluation is null)
+        {
+            <p>Ingen finansvärdering registrerad.</p>
+        }
+        else
+        {
+            <dl>
+                <dt>Skick</dt>
+                <dd>@Model.FinanceEvaluation.ConditionGrade</dd>
+                <dt>Intern värdering</dt>
+                <dd>@Model.FinanceEvaluation.InternalValuation.ToString("C0")</dd>
+                <dt>Offert</dt>
+                <dd>@Model.FinanceEvaluation.OfferPrice.ToString("C0")</dd>
+                <dt>Accepterad</dt>
+                <dd>@Model.FinanceEvaluation.SupplierAccepted</dd>
+                <dt>Kommentar</dt>
+                <dd>@Model.FinanceEvaluation.Notes</dd>
+            </dl>
+        }
+    </article>
+
+    <article class="detail-card">
+        <h2>Auktion</h2>
+        @if (Model.AuctionListing is null)
+        {
+            <p>Inte publicerad på auktion.</p>
+        }
+        else
+        {
+            <dl>
+                <dt>Reservationspris</dt>
+                <dd>@Model.AuctionListing.ReservePrice.ToString("C0")</dd>
+                <dt>Publicerad</dt>
+                <dd>@Model.AuctionListing.PublishedAt</dd>
+                <dt>Slutar</dt>
+                <dd>@Model.AuctionListing.EndsAt</dd>
+                <dt>Status</dt>
+                <dd>@(Model.AuctionListing.IsClosed ? "Stängd" : "Aktiv")</dd>
+                <dt>Antal bud</dt>
+                <dd>@Model.AuctionListing.Bids.Count</dd>
+            </dl>
+        }
+    </article>
+</section>

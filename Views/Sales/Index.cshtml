@@ -1,0 +1,66 @@
+@model IReadOnlyCollection<Cartrade.Models.Vehicle>
+@{
+    ViewData["Title"] = "Sales";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Sales</h1>
+        <p>Publicera klara fordon, övervaka bud och stäng auktioner.</p>
+    </div>
+    <a asp-controller="Auction" asp-action="Index" class="btn btn-outline-brand">Auktionssida</a>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-warning">@error</div>
+}
+
+<div class="table-shell">
+    <table class="table table-hover align-middle">
+        <thead>
+        <tr>
+            <th>Regnr</th>
+            <th>Fordon</th>
+            <th>Status</th>
+            <th>Reservationspris</th>
+            <th>Högsta bud</th>
+            <th>Slutar</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var vehicle in Model)
+        {
+            var listing = vehicle.AuctionListing;
+            var maxBid = listing?.Bids.OrderByDescending(b => b.Amount).FirstOrDefault()?.Amount;
+            <tr>
+                <td>@vehicle.RegistrationNumber</td>
+                <td>@vehicle.Make @vehicle.Model</td>
+                <td><span class="badge text-bg-secondary">@vehicle.Status</span></td>
+                <td>@listing?.ReservePrice.ToString("C0")</td>
+                <td>@(maxBid.HasValue ? maxBid.Value.ToString("C0") : "-")</td>
+                <td>@listing?.EndsAt</td>
+                <td class="text-end">
+                    @if (vehicle.Status == Cartrade.Models.Enums.VehicleStatus.ReadyForSale || vehicle.Status == Cartrade.Models.Enums.VehicleStatus.InAuction)
+                    {
+                        <a asp-action="Publish" asp-route-id="@vehicle.Id" class="btn btn-sm btn-outline-success">Publicera/uppdatera</a>
+                    }
+                    @if (listing is not null && !listing.IsClosed)
+                    {
+                        <form asp-action="CloseAuction" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@listing.Id" />
+                            <button type="submit" class="btn btn-sm btn-dark">Stäng auktion</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

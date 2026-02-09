@@ -1,0 +1,45 @@
+@model IReadOnlyCollection<Cartrade.Models.AuctionListing>
+@{
+    ViewData["Title"] = "Auktion";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Auktionssida</h1>
+        <p>Responsiv vy för återförsäljare och interna säljteam.</p>
+    </div>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+<section class="auction-grid">
+    @foreach (var listing in Model)
+    {
+        var highestBid = listing.Bids.OrderByDescending(b => b.Amount).FirstOrDefault()?.Amount;
+        <article class="auction-card">
+            <header>
+                <h2>@listing.Vehicle.RegistrationNumber</h2>
+                <p>@listing.Vehicle.Make @listing.Vehicle.Model (@listing.Vehicle.ModelYear)</p>
+            </header>
+            <div class="auction-meta">
+                <p><span>Km:</span> @listing.Vehicle.OdometerKm</p>
+                <p><span>Reserv:</span> @listing.ReservePrice.ToString("C0")</p>
+                <p><span>Högsta bud:</span> @(highestBid.HasValue ? highestBid.Value.ToString("C0") : "Inget bud")</p>
+                <p><span>Avslutas:</span> @listing.EndsAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm")</p>
+            </div>
+            <a asp-action="Details" asp-route-id="@listing.Id" class="btn btn-brand w-100">Visa auktion</a>
+        </article>
+    }
+</section>
+
+@if (!Model.Any())
+{
+    <p>Inga aktiva auktioner just nu.</p>
+}
