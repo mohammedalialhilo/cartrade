@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cartrade")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48208abb6778df0ce41c472154a1bd501cbc1a31")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef03c97de05d7e5ef8ac1d7cac80c0210c0322c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cartrade")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cartrade")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
