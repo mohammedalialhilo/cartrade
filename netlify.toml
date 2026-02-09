@@ -4,6 +4,6 @@
 
 [[redirects]]
   from = "/*"
-  to = "https://YOUR-RENDER-URL.onrender.com/:splat"
+  to = "https://cartrade-web.onrender.com/:splat"
   status = 200
   force = true
