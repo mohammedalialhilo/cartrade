@@ -226,9 +226,7 @@ C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\a3ygkwa5zy-{0}-2z0n
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\nezrqnk58p-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\v0zgfp0y55-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\yfc7ypekbg-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\7c8xng9qel-{0}-cpxv1xdbad-cpxv1xdbad.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\35nx1at6e4-{0}-61n19gt1b8-61n19gt1b8.gz
-C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\nc4z7r768i-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\19swq7h4a9-{0}-bqjiyaj88i-bqjiyaj88i.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\wcsbpb8cwx-{0}-c2jlpeoesf-c2jlpeoesf.gz
 C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\fiu443c84a-{0}-erw9l3u2r3-erw9l3u2r3.gz
@@ -451,3 +449,6 @@ C:\Users\alhil\Desktop\Cartrade\build-verify\runtimes\win-arm64\native\e_sqlite3
 C:\Users\alhil\Desktop\Cartrade\build-verify\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\alhil\Desktop\Cartrade\build-verify\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\alhil\Desktop\Cartrade\build-verify\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
+C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\Cartrade.sourcelink.json
+C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\7c8xng9qel-{0}-itmt650v6y-itmt650v6y.gz
+C:\Users\alhil\Desktop\Cartrade\obj\Debug\net10.0\compressed\nc4z7r768i-{0}-sz1aq4fm53-sz1aq4fm53.gz

@@ -6,7 +6,7 @@
 <div class="page-head">
     <div>
         <h1>User Management</h1>
-        <p>Only admins can create accounts and assign roles.</p>
+        <p>Only admins can create and edit user accounts, roles, and names.</p>
     </div>
     <a asp-action="Create" class="btn btn-brand">Create user</a>
 </div>
@@ -20,15 +20,18 @@
     <table class="table table-striped align-middle">
         <thead>
         <tr>
+            <th>Name</th>
             <th>Email</th>
             <th>Roles</th>
             <th>Status</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var user in Model)
         {
             <tr>
+                <td>@user.Name</td>
                 <td>@user.Email</td>
                 <td>@user.Roles</td>
                 <td>
@@ -40,6 +43,9 @@
                     {
                         <span class="badge text-bg-success">Active</span>
                     }
+                </td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-outline-primary">Edit</a>
                 </td>
             </tr>
         }

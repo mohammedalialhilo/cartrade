@@ -1,3 +1,9 @@
+@{
+    ViewContext.ActionDescriptor.RouteValues.TryGetValue("area", out var currentArea);
+    ViewContext.ActionDescriptor.RouteValues.TryGetValue("page", out var currentPage);
+    var isIdentityLogin = string.Equals(currentArea, "Identity", StringComparison.OrdinalIgnoreCase) &&
+                          string.Equals(currentPage, "/Account/Login", StringComparison.OrdinalIgnoreCase);
+}
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -12,7 +18,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Cartrade.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="@(isIdentityLogin ? "identity-login" : string.Empty)">
 <header>
     <nav class="navbar navbar-expand-lg navbar-light nav-shell">
         <div class="container-xl">

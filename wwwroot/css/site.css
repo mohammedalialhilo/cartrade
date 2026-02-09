@@ -342,3 +342,13 @@ h1, h2, h3, h4 {
     overflow-x: auto;
   }
 }
+
+/* Hide external auth panel on login page and let the local login form use full width. */
+body.identity-login .col-lg-4.col-lg-offset-2 {
+  display: none !important;
+}
+
+body.identity-login .col-lg-8 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
